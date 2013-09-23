@@ -29,19 +29,19 @@ object HelloScalaFX extends JFXApp {
   // open a file on computer. It can use also HTTP
   val MEDIA_URL = new File("./test.mp3").toURI().toString()
 
+  // create media player
+  private val media = new Media(MEDIA_URL)
+  private val mediaPlayer = new MediaPlayer(media)
+  mediaPlayer.setAutoPlay(true)
+
+  // start volume
+  mediaPlayer.setVolume(0.5)
+  volumeLevelProp.set("50%")
+
   stage = new PrimaryStage {
     title = "ScalaFX MediaPlayer"
     width = 450
     height = 150
-
-    // create media player
-    val media = new Media(MEDIA_URL)
-    val mediaPlayer = new MediaPlayer(media)
-    mediaPlayer.setAutoPlay(true)
-
-    // start volume
-    mediaPlayer.setVolume(0.5)
-    volumeLevelProp.set("50%")
 
     val fileNameText = new Label {
       text = mediaPlayer.getMedia().getSource()
@@ -54,7 +54,7 @@ object HelloScalaFX extends JFXApp {
     currentTimeSub = mediaPlayer.currentTime.onChange {
       // when change
       Platform.runLater {
-        currentTimeProp.set(math.round(mediaPlayer.currentTime.value.toSeconds).toString() + " / " +
+        currentTimeProp.set(math.round(mediaPlayer.currentTime.value.toSeconds).toString + " / " +
           math.round(mediaPlayer.totalDuration().toSeconds).toString + " secs")
       }
     }
@@ -100,22 +100,13 @@ object HelloScalaFX extends JFXApp {
 
     val volumeDown = new Button {
       text = "volume down"
-      onAction = {
-        if (mediaPlayer.getVolume() > 0.0) {
-          mediaPlayer.setVolume(mediaPlayer.getVolume() - 0.1)
-        }
-      }
+      onAction = volDown()
     }
 
     val volumeUp = new Button {
       text = "volume up"
-      onAction = {
-        if (mediaPlayer.getVolume() < 1.0) {
-          mediaPlayer.setVolume(mediaPlayer.getVolume() + 0.1)
-        }
-      }
+      onAction = volUp()
     }
-
 
     val controlsView = new HBox() {
       padding = Insets(20)
@@ -132,7 +123,18 @@ object HelloScalaFX extends JFXApp {
         bottom = controlsView
       }
     }
+  }
 
+  def volUp() = {
+    if (mediaPlayer.getVolume() <= 0.9) {
+      mediaPlayer.setVolume(mediaPlayer.getVolume() + 0.1)
+    }
+  }
+
+  def volDown() = {
+    if (mediaPlayer.getVolume() >= 0.1) {
+      mediaPlayer.setVolume(mediaPlayer.getVolume() - 0.1)
+    }
   }
 }
 
