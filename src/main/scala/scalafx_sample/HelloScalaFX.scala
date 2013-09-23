@@ -40,7 +40,8 @@ object HelloScalaFX extends JFXApp {
     mediaPlayer.setAutoPlay(true)
 
     // start volume
-    mediaPlayer.setVolume(1)
+    mediaPlayer.setVolume(0.7)
+    volumeLevelProp.set("70%")
 
     val fileNameText = new Label {
       text = mediaPlayer.getMedia().getSource()
@@ -86,10 +87,6 @@ object HelloScalaFX extends JFXApp {
     }
 
 
-    private def formatVolume(vol: Double) = {
-      volumeLevelProp.set(math.round(vol * 100).toString + "%")
-    }
-
     val volumeLevel = new Label {
       text <== volumeLevelProp
     }
@@ -116,7 +113,7 @@ object HelloScalaFX extends JFXApp {
       padding = Insets(20)
       spacing = 10
       content = List(
-        play, pause, stop, volumeDown, volumeUp, volumeLevel
+        play, pause, stop, volumeDown, volumeLevel, volumeUp
       )
     }
 
