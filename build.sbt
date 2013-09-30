@@ -19,4 +19,4 @@ fork in run := true
 
 // set the main class for the main 'run' task
 // change Compile to Test to set it for 'test:run'
-mainClass in (Compile, run) := Some("scalafx_sample.HelloScalaFX")
+mainClass in (Compile, run) := Some("scalafx_sample.MusicPlayer")
