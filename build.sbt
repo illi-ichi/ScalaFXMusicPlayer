@@ -1,15 +1,22 @@
 
-name := "scalafx-sample"
+name := "scalafxmsuic"
 
-organization := "scalafx-sample"
+organization := "scalafxmsuic"
 
 version := "1.0"
 
-scalaVersion := "2.10.2"
+scalaVersion := "2.10.3"
+
+
+resolvers ++= Seq(
+    "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
+)
+
 
 libraryDependencies ++= Seq(
   "org.scalafx" %% "scalafx" % "1.0.0-M5",
-  "org.scalatest" % "scalatest_2.10" % "1.9.2" % "test" //http://www.scalatest.org/download
+  "org.scalatest" % "scalatest_2.10" % "1.9.2",
+  "com.typesafe.akka" %% "akka-actor" % "2.2.1"
 )
 
 unmanagedJars in Compile += Attributed.blank(
@@ -19,4 +26,4 @@ fork in run := true
 
 // set the main class for the main 'run' task
 // change Compile to Test to set it for 'test:run'
-mainClass in (Compile, run) := Some("scalafx_sample.MusicPlayer")
+mainClass in (Compile, run) := Some("scalafxmusic.MusicPlayer")
