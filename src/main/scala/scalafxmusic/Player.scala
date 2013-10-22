@@ -66,7 +66,7 @@ class Player(box: HBox) extends Actor {
       mediaPlayer.play()
 
       mediaPlayer.onEndOfMedia = {
-        context.actorSelection("/us er/playlist") ! "EndOfMedia"
+        context.actorSelection("/user/playlist") ! "EndOfMedia"
       }
 //      title.set(media.source.split("/").last)
 
